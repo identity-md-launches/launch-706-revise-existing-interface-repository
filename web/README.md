@@ -11,7 +11,8 @@ npm ci --prefix web
 npm run --prefix web typecheck
 npm run --prefix web build
 npm run --prefix web check:export
-npm run --prefix web test
+node web/scripts/check-package.mjs
+node --test web/tests/math.test.mjs web/tests/history.test.mjs web/tests/theme.test.mjs
 npm exec --prefix web -- playwright install chromium
 npm run --prefix web test:browser
 npm run --prefix web preview
@@ -51,10 +52,26 @@ Actions check chain/account, simulate, show a native review dialog, simulate aga
 
 ## Delivery and limitations
 
-See [validation](../docs/frontend/VALIDATION.md), [design](../docs/DESIGN.md), [browser evidence](../docs/frontend/browser-results.json) and [live read evidence](../docs/frontend/live-state.json).
+See [validation](../docs/frontend/VALIDATION.md), [design](../DESIGN.md), [browser evidence](../docs/frontend/browser-results.json) and [live read evidence](../docs/frontend/live-charts.json).
 
-The supplied Git tree contains no previous frontend or design system, so exact visual and behavioral continuity with previous increments cannot be established. The implementation follows the requested single-screen, neutral monochrome, monospace, tabular-number, hairline direction. The requested root `DESIGN.md` conflicts with the explicit write scope; the design document is delivered at `docs/DESIGN.md` instead.
+This task revises the existing terminal; it preserves every action pane and its Vite configuration, package manifest and lockfile. The complete current design is documented in root `DESIGN.md`. Neither `.imd/reads/deployment.json` nor `.imd/reads/network.json` was supplied in this revision, so the existing deployment-source, verified ABI exports and runtime manifest structure are retained. No contract, backend, indexer or subgraph was added.
 
-The attested handoff deploys MockWorkOracle, not SwarmWorkOracle. Both modes are implemented; attested mode is interaction-tested with fixture data. Reproduce the recorded live reads with `node web/scripts/live-state.mjs 11844083` (an archival-capable configured endpoint is needed). At observed block 11844083 the real USD price was zero/stale and reserve IMD was zero, so live redemption was unavailable. No transactions were broadcast. No previous frontend regression suite was available. Absolute social-card metadata awaits the publisher's domain; a favicon, title and description are included. Publication, pinning, naming and independent service checks are subsequent control-plane work.
+The injected-wallet actions are tested with mocked accounts and receipts. No funded transaction was broadcast. A live browser session additionally read the real public deployment and one accepted primary attestation; NHI and spot only had reporter updates in that session. The vault returned no verifiable deposit events, so its book correctly says the position count is unknown. Historical provider availability, explorer pagination and final chain execution can vary; successful fixtures do not certify live-chain behavior. See the current validation record and `docs/frontend/live-charts.json` for observations.
 
-Worker commit limitation: this workspace mounts `.git` read-only. The source/export are present, but local staging/commit failed creating `.git/index.lock`. See the validation record.
+The existing metadata and favicon remain, with a theme-aware favicon and theme-color. Absolute social-card metadata still awaits the publisher’s domain. Publication, pinning and naming are outside this local revision.
+
+The assignment explicitly prohibits touching repository `.git/`. Source, the existing lockfile, the rebuilt export and documentation are present for submission; this worker does not stage or commit them. Packaging verification uses an isolated temporary bare repository, never the working repository’s Git metadata.
+
+## Themes and charts
+
+Light uses exactly ivory, surface, ink, slate, hairline, engraved green and oxblood tokens. Dark preserves the original six surface/text tokens, with the same complete semantic roles. The OS is the default; the explicit toggle persists across reloads and follows storage changes across tabs. Clear `comp-terminal-theme` in local storage to resume the OS default.
+
+The new loan pane discovers the vault’s deployment block using historical code reads, falling back to Blockscout creation-transaction metadata when archive state is unavailable. Browser log requests cover deployment through the snapshot in contiguous chunks of at most 2,000 blocks. An error **or an empty RPC chunk** triggers the configured Sepolia Blockscout v2 API. All `next_page_params` pages are followed, address/range/schema checks apply, and malformed known events or incomplete coverage fail closed. Empty discovery is never evidence of an empty loan book. Limits (10,000 chunks / 2,000 pages), the 12-block re-read overlap and the public API URL are together in `src/config.ts`. Hitting a limit reports unread history. Only in-memory session history is cached; there is no backend or persistent index.
+
+Distinct `CollateralDeposited.account` owners are read at the snapshot’s block using `positions(owner)` and `collateralRatio(owner)`, six owners at a time. Zero debt is dropped only after successful owner reads. One failed owner invalidates the book. Refreshed logs retain an anchor and re-read the overlap; this handles shallow reorganizations, not arbitrary deep chain rewrites. Risk limits come from live `minCR()` and `redemptionCeilingCR()`. The strip labels come from fixed engraving/currency word lists and a full-address hash; collisions are possible and public addresses remain available.
+
+Oracle points are paired `ValueUpdated` + `AttestationAccepted` events in transaction/log order. Their x coordinates use the signed `updatedAt`, which is also what the contract uses for staleness. Reporter values and the derived USD feed never create fabricated attestation points. The work feed is plotted when the linked implementation actually supports accepted attestations. Current supply uses `totalDebt + totalWorkMinted − totalNonPrincipalRedeemed`; the split nets non-principal burns and caps principal at supply. A disclosure explains bad debt and the backing-ratio formula. Work headroom continues to use cumulative work minted.
+
+Read source coverage and constraints in `src/history.ts` and `src/Charts.tsx`. The public API pagination schema is documented in [Blockscout’s OpenAPI specification](https://github.com/blockscout/blockscout-api-v2-swagger/blob/main/swagger.yaml).
+
+For an optional current-network browser smoke check (no wallet or broadcasts), run `node web/scripts/live-charts.mjs` with the same Playwright browser path. It serves the existing export at a local subpath for the duration of the check, then closes the browser and server. `node web/scripts/live-check.mjs` separately verifies public chain ID and code. These commands write dated evidence under `docs/frontend/`.

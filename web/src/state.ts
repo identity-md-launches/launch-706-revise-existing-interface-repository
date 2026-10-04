@@ -98,6 +98,7 @@ export async function snapshot(
     "backedDebt",
     "totalBadDebt",
     "totalWorkMinted",
+    "totalNonPrincipalRedeemed",
     "workCeiling",
     "workRatioBps",
     "reserveValue",

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-04T19:32:33.738Z",
+  "date": "2026-10-04T21:36:31.139Z",
   "url": "local /preview/ subpath",
   "browser": "153.0.8010.12",
   "mode": "mocked RPC and wallet; no broadcasts",
@@ -133,15 +133,15 @@
       "status": "passed",
       "detail": {
         "tokens": {
-          "--bg": "#111",
-          "--surface": "#161616",
-          "--text": "#eee",
-          "--muted": "#a8a8a8",
-          "--control": "#777"
+          "--bg": "#f7f5ef",
+          "--surface": "#fffdf8",
+          "--text": "#16202e",
+          "--muted": "#5a6472",
+          "--control": "#5a6472"
         },
-        "body": 15.597083882512038,
-        "secondary": 7.610275392134098,
-        "inputBorder": 4.216767253166575
+        "body": 16.13657748481789,
+        "secondary": 5.901183673289698,
+        "inputBorder": 5.502569733028384
       }
     },
     {
@@ -158,6 +158,155 @@
     },
     {
       "name": "Runtime ABI integrity failure blocks the terminal; corrected asset can be retried",
+      "status": "passed"
+    },
+    {
+      "name": "Deposit owners deduplicated, zero-debt owner excluded, debt area ratio 4:1; hover, keyboard and touch-readable addresses",
+      "status": "passed",
+      "detail": [
+        "Copper Penny",
+        "Etched Ledger",
+        "Golden Sovereign"
+      ]
+    },
+    {
+      "name": "Live minCR moves the risk band and changes position classification; price updates move existing marks",
+      "status": "passed"
+    },
+    {
+      "name": "Every accepted value is a point at its irregular timestamp; expiry marked and a new point appends; composition, backing/par and work-ceiling bars rendered",
+      "status": "passed",
+      "detail": {
+        "xs": [
+          6,
+          13.987796422132853,
+          197.70711413118846,
+          288.767993343503
+        ]
+      }
+    },
+    {
+      "name": "Live workCeiling and maxDivergenceBps updates redraw limits and explicitly label breaches",
+      "status": "passed"
+    },
+    {
+      "name": "Silent empty RPC uses paginated Blockscout fallback; empty fallback and partial owner failure render unknown, retry restores the book",
+      "status": "passed"
+    },
+    {
+      "name": "OS theme follows live changes; explicit theme survives reload and overrides OS",
+      "status": "passed"
+    },
+    {
+      "name": "Measured rendered light text and chart-mark contrast",
+      "status": "passed",
+      "detail": {
+        "surface": "rgb(255, 253, 248)",
+        "background": "rgb(247, 245, 239)",
+        "text": "rgb(22, 32, 46)",
+        "muted": "rgb(90, 100, 114)",
+        "healthy": "rgb(47, 93, 80)",
+        "band": "rgb(216, 211, 199)",
+        "body": 16.13657748481789,
+        "secondary": 5.901183673289698,
+        "markOnBand": 5.017830921924557,
+        "markOnSurface": 7.371267664533665
+      }
+    },
+    {
+      "name": "Measured rendered dark text and chart-mark contrast",
+      "status": "passed",
+      "detail": {
+        "surface": "rgb(22, 22, 22)",
+        "background": "rgb(17, 17, 17)",
+        "text": "rgb(238, 238, 238)",
+        "muted": "rgb(168, 168, 168)",
+        "healthy": "rgb(146, 181, 166)",
+        "band": "rgb(58, 58, 58)",
+        "body": 15.597083882512038,
+        "secondary": 7.610275392134098,
+        "markOnBand": 5.081919202881839,
+        "markOnSurface": 8.085027833562451
+      }
+    },
+    {
+      "name": "Both themes fit all five viewport sizes; all eight mobile panes reachable; desktop axe reports no violations",
+      "status": "passed",
+      "detail": [
+        {
+          "theme": "light",
+          "width": 1440,
+          "height": 900,
+          "sw": 1440,
+          "sh": 900
+        },
+        {
+          "theme": "light",
+          "width": 1280,
+          "height": 800,
+          "sw": 1280,
+          "sh": 800
+        },
+        {
+          "theme": "light",
+          "width": 900,
+          "height": 900,
+          "sw": 900,
+          "sh": 900
+        },
+        {
+          "theme": "light",
+          "width": 390,
+          "height": 844,
+          "sw": 390,
+          "sh": 844
+        },
+        {
+          "theme": "light",
+          "width": 320,
+          "height": 740,
+          "sw": 320,
+          "sh": 740
+        },
+        {
+          "theme": "dark",
+          "width": 1440,
+          "height": 900,
+          "sw": 1440,
+          "sh": 900
+        },
+        {
+          "theme": "dark",
+          "width": 1280,
+          "height": 800,
+          "sw": 1280,
+          "sh": 800
+        },
+        {
+          "theme": "dark",
+          "width": 900,
+          "height": 900,
+          "sw": 900,
+          "sh": 900
+        },
+        {
+          "theme": "dark",
+          "width": 390,
+          "height": 844,
+          "sw": 390,
+          "sh": 844
+        },
+        {
+          "theme": "dark",
+          "width": 320,
+          "height": 740,
+          "sw": 320,
+          "sh": 740
+        }
+      ]
+    },
+    {
+      "name": "Reduced motion disables all chart transitions, line drawing and point entrances",
       "status": "passed"
     },
     {

@@ -265,3 +265,7 @@ the written reproductions. Archive the record immediately.
 | `docs/archive/` | superseded per-increment notes, kept for history |
 | `docs/UPSTREAM-STABLE-QUESTION-ID.md` | why `questionHash` is unstable, and why that is not a PR yet |
 | `docs/ABI.md` | the deployed interfaces |
+
+## Browser terminal
+
+The existing Vite/React terminal in `web/` now includes OS-aware light/dark themes, a live collateral-ratio loan book and oracle, supply, divergence and work-headroom charts. Its static export is in `dist/`. See [installation, configuration and validation commands](web/README.md), [implemented design](DESIGN.md) and [worker validation](docs/frontend/VALIDATION.md). No backend or indexer is required.

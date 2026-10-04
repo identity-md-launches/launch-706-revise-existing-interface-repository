@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import {
   decodeFunctionData,
+  encodeEventTopics,
+  encodeAbiParameters,
   encodeFunctionResult,
   encodeErrorResult,
   parseEther,
@@ -45,6 +47,16 @@ const W = 10n ** 18n;
 export const txHash = "0x" + "ab".repeat(32);
 const blockHash = "0x" + "cd".repeat(32);
 export const fixture = () => ({
+  minCR: 150n,
+  workCeiling: 1250n * W,
+  maxDivergenceBps: 2000n,
+  spotMultiplier: 1,
+  priceMultiplier: 1,
+  logMode: "rpc",
+  explorerEmpty: false,
+  ownerReadFail: false,
+  extraPoint: false,
+  logsRequested: [],
   reserve: 100n * W,
   supply: 10000n * W,
   allowance: 0n,
@@ -139,23 +151,24 @@ function call(s, params) {
     else if (f === "sync") value = 0n;
   } else if (name === "ParameterizedVault") {
     const scalar = {
-      minCR: 150n,
-      redemptionCeilingCR: 200n,
+      minCR: s.minCR,
+      redemptionCeilingCR: s.minCR + 50n,
       redemptionSpread: 50n,
       redemptionReserve: s.reserve,
       REDEMPTION_FEE_FLOOR_BPS: 50n,
       REDEMPTION_FEE_CAP_BPS: 500n,
-      totalDebt: 1000n * W,
+      totalDebt: s.supply - 20n * W,
       totalBadDebt: 0n,
       totalWorkMinted: 20n * W,
-      workCeiling: 1250n * W,
+      totalNonPrincipalRedeemed: 0n,
+      workCeiling: s.workCeiling,
       workRatioBps: 2500n,
       reserveValue: 1000n * W,
       securedCollateral: 1000n * W,
       backedDebt: 1000n * W,
       debtCeiling: 1000000n * W,
       stabilityFeeBps: 200n,
-      maxDivergenceBps: 2000n,
+      maxDivergenceBps: s.maxDivergenceBps,
       gracePeriod: 21600n,
       liquidationWindow: 3600n,
       stabilityFeeOf: W,
@@ -171,9 +184,22 @@ function call(s, params) {
       value =
         args[0].toLowerCase() === candidate.toLowerCase()
           ? s.candidateCR
-          : 175n;
-    else if (f === "positions") value = [1000n * W, 1000n * W];
-    else if (f === "liquidationMarks")
+          : args[0].toLowerCase() === extraOwner.toLowerCase()
+            ? BigInt(Math.round(260 * s.priceMultiplier))
+            : BigInt(Math.round(175 * s.priceMultiplier));
+    else if (f === "positions") {
+      if (s.ownerReadFail && args[0].toLowerCase() === extraOwner.toLowerCase())
+        throw Error("Position read unavailable");
+      value =
+        args[0].toLowerCase() === closedOwner.toLowerCase()
+          ? [100n * W, 0n]
+          : [
+              1000n * W,
+              args[0].toLowerCase() === extraOwner.toLowerCase()
+                ? 250n * W
+                : 1000n * W,
+            ];
+    } else if (f === "liquidationMarks")
       value = [s.now - 22000n, 21600n, true, account];
     else value = scalar[f];
   } else if (["imdToken", "compToken"].includes(name)) {
@@ -190,7 +216,7 @@ function call(s, params) {
       debtCeiling: 1000000n * W,
       protocolBonusShareBps: 1000n,
       stabilityFeeBps: 200n,
-      maxDivergenceBps: 2000n,
+      maxDivergenceBps: s.maxDivergenceBps,
       markerShareBps: 1000n,
     };
     value = {
@@ -235,7 +261,9 @@ function call(s, params) {
           ? 2n * W
           : name === "NhiFeed"
             ? (85n * W) / 100n
-            : W / 1000n,
+            : name === "SpotFeed"
+              ? BigInt(Math.round(1e15 * s.spotMultiplier))
+              : W / 1000n,
         s.now - 120n,
       ],
       isStale: s.stale,
@@ -259,8 +287,25 @@ export function rpc(s, body) {
       case "eth_chainId":
         result = s.chainMismatch ? "0x1" : "0xaa36a7";
         break;
+      case "eth_getLogs": {
+        s.logsRequested.push(body.params[0]);
+        const p = body.params[0];
+        result =
+          s.logMode === "rpc"
+            ? fixtureLogs(s, p.address).filter(
+                (l) =>
+                  BigInt(l.blockNumber) >= BigInt(p.fromBlock) &&
+                  BigInt(l.blockNumber) <= BigInt(p.toBlock),
+              )
+            : [];
+        break;
+      }
       case "eth_getCode":
-        result = s.codeMissing ? "0x" : "0x6001600055";
+        result =
+          s.codeMissing ||
+          (body.params[1] !== "latest" && BigInt(body.params[1]) < 16n)
+            ? "0x"
+            : "0x6001600055";
         break;
       case "eth_blockNumber":
         result = "0x100";
@@ -362,4 +407,84 @@ export async function installWallet(
     },
     { account, chain, reject },
   );
+}
+
+export const extraOwner = "0x0000000000000000000000000000000000000c33";
+export const closedOwner = "0x0000000000000000000000000000000000000d44";
+export function fixtureLogs(s, address) {
+  const name = byAddr[address.toLowerCase()];
+  const a = abi[abiName[name] || name];
+  const event = (eventName, args, height, index) => {
+    const item = a.find((e) => e.type === "event" && e.name === eventName);
+    return {
+      address,
+      topics: encodeEventTopics({ abi: a, eventName, args }),
+      data: encodeAbiParameters(
+        item.inputs.filter((i) => !i.indexed),
+        item.inputs.filter((i) => !i.indexed).map((i) => args[i.name]),
+      ),
+      blockNumber: "0x" + height.toString(16),
+      logIndex: "0x" + index.toString(16),
+      transactionIndex: "0x0",
+      transactionHash: "0x" + height.toString(16).padStart(64, "0"),
+      blockHash,
+      removed: false,
+    };
+  };
+  if (name === "ParameterizedVault")
+    return [account, candidate, extraOwner, closedOwner, account].map(
+      (owner, i) =>
+        event(
+          "CollateralDeposited",
+          { account: owner, amount: 100n * W },
+          100 + i,
+          0,
+        ),
+    );
+  if (!["PriceFeed", "NhiFeed", "SpotFeed", "oracle"].includes(name)) return [];
+  return [7200, 7000, 2400, 120, ...(s.extraPoint ? [30] : [])].flatMap(
+    (seconds, i) => {
+      const value =
+        name === "NhiFeed"
+          ? ((80n + BigInt(i)) * W) / 100n
+          : name === "oracle"
+            ? 10000n + BigInt(i)
+            : W / 1000n + (BigInt(i) * W) / 100000n;
+      return [
+        event(
+          "ValueUpdated",
+          { value, updatedAt: s.now - BigInt(seconds) },
+          100 + i * 10,
+          0,
+        ),
+        event(
+          "AttestationAccepted",
+          {
+            requestId: "0x" + i.toString(16).padStart(64, "0"),
+            questionHash: "0x" + "01".repeat(32),
+          },
+          100 + i * 10,
+          1,
+        ),
+      ];
+    },
+  );
+}
+export function blockscout(s, url) {
+  const parsed = new URL(url),
+    address = parsed.pathname.split("/")[4];
+  const all = s.explorerEmpty ? [] : fixtureLogs(s, address).reverse();
+  const page = Number(parsed.searchParams.get("cursor") || 0);
+  const items = all.slice(page, page + 3).map((l) => ({
+    address: { hash: l.address },
+    block_number: Number(BigInt(l.blockNumber)),
+    index: Number(BigInt(l.logIndex)),
+    transaction_hash: l.transactionHash,
+    data: l.data,
+    topics: l.topics,
+  }));
+  return {
+    items,
+    next_page_params: page + 3 < all.length ? { cursor: page + 3 } : null,
+  };
 }

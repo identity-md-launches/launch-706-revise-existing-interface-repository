@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useState, Children, type ReactNode } from "react";
 import { type Address } from "viem";
 import type { Target } from "./config";
+import { Ticker } from "./motion";
 import { amount, address, uint, message } from "./math";
 export type Request = {
   target: Target;
@@ -208,10 +209,16 @@ export function Row({
   label: string;
   children: ReactNode;
 }) {
+  const parts = Children.toArray(children);
+  const text = parts.every(
+    (x) => typeof x === "string" || typeof x === "number",
+  )
+    ? parts.join("")
+    : undefined;
   return (
     <div className="row">
       <span>{label}</span>
-      <strong>{children}</strong>
+      <strong>{text === undefined ? children : <Ticker text={text} />}</strong>
     </div>
   );
 }

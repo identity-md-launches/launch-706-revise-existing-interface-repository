@@ -1,0 +1,1701 @@
+{
+  "date": "2026-10-04T21:37:03.470Z",
+  "mode": "Live public network browser reads; no wallet installed, no signing or broadcast",
+  "browser": "153.0.8010.12",
+  "status": " Feeds readySupply 0 COMP0 COMPBlock 11844688Refresh state",
+  "notice": null,
+  "book": "00 Loan bookLive risk bands ↕Collateral ratio / circle area = accrued COMP debtCoverage unverifiedBelow minCR · liquidatableminCR → ceiling · redeemableAbove ceiling · safeCould not read loan book. No verifiable deposit logs were returned. Refresh state or retry history; position count is unknown.Retry history",
+  "oracle": "04 OracleFeeds ↕Price / divergence band · ±5%◆ primary● spot 0.00%5.00 percentage points to the limitPrimary and spot quote IMD in ETH. USD price combines the primary feed with Chainlink ETH / USD.IMD / ETH primary0.003729510.00372951Fresh · 36m ago · limit 86400sstale after →2026-10-04T21:00:40.000Z · 0.00372951 · block 1184455010-04 21:0010-04 21:371 accepted · UTC, signed time · limit 86400s · expiry 10-05 21:00Accepted update values2026-10-04T21:00:40.000Z · 0.00372951Network health0.90.9Fresh · 28m ago · limit 86400sCould not read NhiFeed cadence. Retry history in the loan book.IMD / ETH spot0.003729510.00372951Fresh · 28m ago · limit 3600sCould not read SpotFeed cadence. Retry history in the loan book.IMD / USD10.0991620710.09916207Fresh · 36m ago · limit 86400sDerived on chain; no AttestationAccepted events.Divergence / allowed0% / 5%0% / 5%Price-dependent actions are available.Reporter fallbackFeedPriceFeedNhiFeedSpotFeedCheck reporter permissionReporter permission has not been confirmed.Value (18-decimal units)Review feed reportOnly a configured reporter can report. Simulation rechecks permission.Feed contractsPriceFeed ↗ 0x5bbf…0462CopyNhiFeed ↗ 0xd7c9…5bbbCopySpotFeed ↗ 0x73bf…284bCopy",
+  "failures": [],
+  "statuses": [],
+  "calls": [
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x499577F0aCB0a2783719f4F7570c81f5fDFF8A35",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 1966
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xD9B02Abb50fa08c1A7128E691F9386c487026a8E",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 5823
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x7ad0557eFf83BB81d8d8dFcb0812438bFAAA3E8c",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 2583
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xE8793DFE278aa743D0F11E5D3f4c9E92Bc75281f",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 2232
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xb039b349d40634A1CbB37745C6Ca5a627FE6EF85",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 6371
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x4fC87A6220C063e3C775c0B4ffecAC8386a5fDe5",
+        "0xb4bc50"
+      ],
+      "result": {
+        "codeBytes": 1003
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x5a5e28"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #5922345 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x5a5e28"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #5922345 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x5a5e28"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #5922345 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x5a5e28"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 6517d3a5b9d2dd17f6db6443d1a81d9a1634ab4068a66b3ed257694c18fdfa8a is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x5a5e28"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x5a5e28"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x5a5e28"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x5a5e28"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x878d3c"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #8883517 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x878d3c"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #8883517 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x878d3c"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #8883517 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x878d3c"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #8883517 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x878d3c"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x878d3c"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x878d3c"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x878d3c"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x9e24c6"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #10364103 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x9e24c6"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #10364103 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x9e24c6"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #10364103 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x9e24c6"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 7610662740eed49b424a7a05d623411b10b318a458d5c6832f23cd012ab9f0bc is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0x9e24c6"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0x9e24c6"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0x9e24c6"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0x9e24c6"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xa9708b"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11104396 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xa9708b"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11104396 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xa9708b"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 82735290992c1b19b53a54aea9f51867651d7d69b2f0c23d3a02a751a2eba2b0 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xa9708b"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 82735290992c1b19b53a54aea9f51867651d7d69b2f0c23d3a02a751a2eba2b0 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xa9708b"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xa9708b"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xa9708b"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xa9708b"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xaf166e"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11474543 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xaf166e"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11474543 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xaf166e"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11474543 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xaf166e"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11474543 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xaf166e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xaf166e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xaf166e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xaf166e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb1e95f"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11659616 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb1e95f"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11659616 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb1e95f"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11659616 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb1e95f"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state fc85b76a3638eef62e16c2884669dd5143012e3f997d5981c588cba4051f98e9 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb1e95f"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb1e95f"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb1e95f"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb1e95f"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb352d8"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11752153 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb352d8"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 5a38248d94f952f5b858744c191327817f882a8387f08901007c8debee309305 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb352d8"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 5a38248d94f952f5b858744c191327817f882a8387f08901007c8debee309305 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb352d8"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11752153 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb352d8"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb352d8"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb352d8"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb352d8"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb40794"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11798421 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb40794"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11798421 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb40794"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11798421 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb40794"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 6b605a62382de97d17bda5349e42b703dde052ef400c11cff55c81abbf2b24f8 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb40794"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb40794"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb40794"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb40794"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb461f2"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state fe2c59e3947b6ccc16e8d7dbbeba6796e60ca01cd81723bbf41d23ce5760b067 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb461f2"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11821555 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb461f2"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state fe2c59e3947b6ccc16e8d7dbbeba6796e60ca01cd81723bbf41d23ce5760b067 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb461f2"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11821555 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb461f2"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb461f2"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb461f2"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb461f2"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb48f21"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11833122 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb48f21"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11833122 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb48f21"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11833122 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb48f21"
+      ],
+      "error": {
+        "code": -32603,
+        "message": "state at block #11833122 is pruned"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb48f21"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb48f21"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb48f21"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb48f21"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4a5b9"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4a5b9"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4a5b9"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4a5b9"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b105"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b105"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b105"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b105"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b6ab"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state a3cb5691e3f4bd16600289afa1f211c90cfea7281516c3ab3ab786fb237003f5 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b6ab"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b6ab"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b6ab"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b97e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b97e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b97e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4bae7"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b6ab"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4bae7"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4bae7"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4ba33"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 5e2aeea95db99dfebc0961a4de92153f652b94bb24cd386c2f0c07fd8526e271 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b97e"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4ba33"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 5e2aeea95db99dfebc0961a4de92153f652b94bb24cd386c2f0c07fd8526e271 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4ba33"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4bae7"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b9d9"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state e6bedbdeeb942d92eea11c9d1a5644dcf8e71deaeef8bd2ba8bb3546119ddcc8 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4ba33"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4ba33"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b9d9"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b9d9"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b9d9"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4ba33"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b9ac"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b9ac"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b9ac"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b9d9"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state e6bedbdeeb942d92eea11c9d1a5644dcf8e71deaeef8bd2ba8bb3546119ddcc8 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b995"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state e36e0faeb54117fa6ba499a9d93403782a8db1b7e7c4a86aa38ffa97273d6e67 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b995"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state e36e0faeb54117fa6ba499a9d93403782a8db1b7e7c4a86aa38ffa97273d6e67 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b995"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state e36e0faeb54117fa6ba499a9d93403782a8db1b7e7c4a86aa38ffa97273d6e67 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b995"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b995"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b995"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b98a"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b98a"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b98a"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b9d9"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b990"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 3929f726ce4ad1cab0aab3bf658fa17b1c75553d5534056f96c7d273de7b5045 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b990"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b990"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b9ac"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b992"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state 11b26e089bca4ad855e824aae0eb1dccf029055958bd3d770cdecc12626ca997 is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b995"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b990"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b992"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b98a"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8131
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b990"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b992"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b992"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getLogs",
+      "params": [
+        {
+          "address": "0x73bf2ebfc5bf181ac23799d2d79ac2b48f20284b",
+          "topics": [],
+          "fromBlock": "0xb4b993",
+          "toBlock": "0xb4bc50"
+        }
+      ],
+      "result": {
+        "logCount": 2
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b993"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state cd2721c789390cda493e4a77f07d47a722732518cceb72895ee17498ba1aa23e is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8464
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 8243
+      }
+    },
+    {
+      "method": "eth_getLogs",
+      "params": [
+        {
+          "address": "0xd7c9a4604d9fbfe192232d7c4b7215efe0005bbb",
+          "topics": [],
+          "fromBlock": "0xb4b993",
+          "toBlock": "0xb4bc50"
+        }
+      ],
+      "result": {
+        "logCount": 2
+      }
+    },
+    {
+      "method": "eth_getLogs",
+      "params": [
+        {
+          "address": "0x5bbfa44200ace481388b0b69355f7bd1feab0462",
+          "topics": [],
+          "fromBlock": "0xb4b993",
+          "toBlock": "0xb4bc50"
+        }
+      ],
+      "result": {
+        "logCount": 2
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b992"
+      ],
+      "result": {
+        "codeBytes": 0
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b993"
+      ],
+      "error": {
+        "code": -32000,
+        "message": "historical state cd2721c789390cda493e4a77f07d47a722732518cceb72895ee17498ba1aa23e is not available"
+      }
+    },
+    {
+      "method": "eth_getCode",
+      "params": [
+        "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+        "0xb4b993"
+      ],
+      "result": {
+        "codeBytes": 16968
+      }
+    },
+    {
+      "method": "eth_getLogs",
+      "params": [
+        {
+          "address": "0x850b0d7a6dd95be3e842c0ef14eefe0008f2c68f",
+          "topics": [],
+          "fromBlock": "0xb4b993",
+          "toBlock": "0xb4bc50"
+        }
+      ],
+      "result": {
+        "logCount": 1
+      }
+    }
+  ]
+}

@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  WorkChart,
+  SupplyChart,
+  DivergenceChart,
+  Sparkline,
+  type ChartData,
+} from "./Charts";
+import { Ticker } from "./motion";
 import { type Runtime } from "./config";
 import { type Snapshot, read, feedsReady } from "./state";
 import { Action, ActionForm, Row, AddressLink, type Actions } from "./actions";
@@ -40,8 +48,12 @@ export function Position({
     <>
       <div className="hero-stat">
         <span>Collateral ratio</span>
-        <strong>{ratio(v.collateralRatio)}</strong>
-        <small>minCR {ratio(v.minCR)}</small>
+        <strong>
+          <Ticker text={ratio(v.collateralRatio)} />
+        </strong>
+        <small>
+          minCR <Ticker text={ratio(v.minCR)} />
+        </small>
       </div>
       <Row label="Collateral">{fmt(v.positions?.[0])} IMD</Row>
       <Row label="Accrued debt">{fmt(v.debtOf)} COMP</Row>
@@ -153,11 +165,13 @@ export function Work({
   s,
   actions,
   now,
+  charts,
 }: {
   r: Runtime;
   s?: Snapshot;
   actions: Actions;
   now: bigint;
+  charts: ChartData;
 }) {
   const w = s?.work;
   const v = s?.v || {};
@@ -170,10 +184,13 @@ export function Work({
     : undefined;
   return (
     <>
+      <WorkChart s={s} />
       <div className="hero-stat">
         <span>Attested cumulative tasks</span>
         <strong>
-          {attested ? w.attestedTasks.toLocaleString("en-US") : "—"}
+          <Ticker
+            text={attested ? w.attestedTasks.toLocaleString("en-US") : "—"}
+          />
         </strong>
         <small>
           {attested
@@ -183,6 +200,23 @@ export function Work({
               : "Awaiting linked oracle"}
         </small>
       </div>
+      {attested && (
+        <Sparkline
+          feed={charts.feeds.oracle}
+          live={
+            w
+              ? {
+                  value: w.latestValue[0],
+                  updated: w.latestValue[1],
+                  stale: w.isStale,
+                  maxAge: w.maxAge,
+                }
+              : undefined
+          }
+          now={now}
+          label="Work tally"
+        />
+      )}
       {faucet && (
         <p className="notice">
           This vault uses MockWorkOracle. No attested task count or publication
@@ -276,11 +310,13 @@ export function Oracle({
   s,
   actions,
   now,
+  charts,
 }: {
   r: Runtime;
   s?: Snapshot;
   actions: Actions;
   now: bigint;
+  charts: ChartData;
 }) {
   const [selected, setSelected] = useState("PriceFeed");
   const [reporter, setReporter] = useState(false);
@@ -294,6 +330,7 @@ export function Oracle({
       : undefined;
   return (
     <>
+      <DivergenceChart s={s} />
       <p className="micro">
         Primary and spot quote IMD in ETH. USD price combines the primary feed
         with Chainlink ETH / USD.
@@ -318,6 +355,14 @@ export function Oracle({
               ? "Unavailable"
               : `${f[n].stale ? "Stale" : "Fresh"} · ${age(f[n].updated, now)} · limit ${f[n].maxAge}s`}
           </p>
+          {n !== "USD" && (
+            <Sparkline feed={charts.feeds[n]} live={f[n]} now={now} label={n} />
+          )}
+          {n === "USD" && (
+            <p className="micro">
+              Derived on chain; no AttestationAccepted events.
+            </p>
+          )}
         </div>
       ))}
       <Row label="Divergence / allowed">
@@ -464,6 +509,9 @@ export function Keeper({
       </p>
       {position && (
         <>
+          <p className="micro keeper-owner">
+            Acting on borrower: {position.owner}
+          </p>
           <Row label="Collateral ratio">{ratio(position.cr)}</Row>
           <Row label="Accrued debt">{fmt(position.debt)} COMP</Row>
           <Row label="Bad debt estimate">{fmt(position.badDebt)} COMP</Row>
@@ -566,6 +614,7 @@ export function Backing({
   const v = s?.v || {};
   return (
     <>
+      <SupplyChart s={s} />
       <Row label="Reserve value">${fmt(v.reserveValue)}</Row>
       <Row label="Collateral-backed debt">{fmt(v.backedDebt)} COMP</Row>
       <Row label="Secured collateral">{fmt(v.securedCollateral)} IMD</Row>

@@ -1,3 +1,4 @@
+import { Ticker } from "./motion";
 import { useEffect, useRef, useState } from "react";
 import { zeroAddress, type Address } from "viem";
 import { type Runtime } from "./config";
@@ -81,7 +82,9 @@ export function Redemption({
     <>
       <div className="hero-stat">
         <span>Current fee</span>
-        <strong>{percent(v.fee)}</strong>
+        <strong>
+          <Ticker text={percent(v.fee)} />
+        </strong>
         <small>before your amount</small>
       </div>
       <div className="two-col">

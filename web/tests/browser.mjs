@@ -12,6 +12,7 @@ import {
   installWallet,
   config,
   candidate,
+  blockscout,
 } from "./fixture.mjs";
 const root = resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const evidence = resolve(root, "docs/frontend");
@@ -69,6 +70,15 @@ async function setup({ wallet = true, chain = "0x1" } = {}) {
   });
   await context.route(/^https:\/\//, async (route) => {
     const request = route.request();
+    if (
+      request.url().startsWith("https://eth-sepolia.blockscout.com/api/v2/")
+    ) {
+      await route.fulfill({
+        json: blockscout(s, request.url()),
+        headers: { "access-control-allow-origin": "*" },
+      });
+      return;
+    }
     if (!config.network.rpcUrls.some((u) => request.url().startsWith(u)))
       throw Error("Unexpected remote request " + request.url());
     const body = request.postDataJSON();
@@ -347,6 +357,24 @@ try {
       bw: document.body.scrollWidth,
       bh: document.body.scrollHeight,
     }));
+    if (dimensions.sh !== height || dimensions.sw !== width) {
+      await page.screenshot({ path: `${evidence}/overflow-debug.png` });
+      console.log(
+        await page.evaluate(() =>
+          [...document.querySelectorAll("body *")]
+            .map((el) => ({
+              tag: el.tagName,
+              cls: el.className,
+              rect: el.getBoundingClientRect().toJSON(),
+              position: getComputedStyle(el).position,
+            }))
+            .filter(
+              (e) => e.rect.bottom > innerHeight && e.position === "absolute",
+            )
+            .slice(0, 25),
+        ),
+      );
+    }
     assert.equal(dimensions.sw, width);
     assert.equal(dimensions.sh, height);
     assert.equal(dimensions.bw, width);
@@ -358,6 +386,7 @@ try {
     viewports.push(dimensions);
     if (width <= 760) {
       for (const pane of [
+        "loans",
         "position",
         "work",
         "oracle",
@@ -507,6 +536,346 @@ try {
     .waitFor();
   passed(
     "Runtime ABI integrity failure blocks the terminal; corrected asset can be retried",
+  );
+  // Charts: exercise the exported bundle against deliberately irregular and failing history.
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.locator(".loan-mark").first().waitFor();
+  assert.equal(await page.locator(".loan-mark").count(), 3);
+  const names = await page.locator(".loan-label").allTextContents();
+  const dots = await page
+    .locator(".loan-dot")
+    .evaluateAll((nodes) => nodes.map((n) => parseFloat(n.style.width)));
+  assert.deepEqual(
+    [...dots].sort((a, b) => a - b),
+    [12, 24, 24],
+  );
+  await page.locator(".loan-mark").first().hover();
+  assert.match(
+    await page.locator(".loan-mark").first().getAttribute("title"),
+    /0x[0-9a-fA-F]{40}/,
+  );
+  await page.locator(".loan-mark").first().focus();
+  await page.keyboard.press("Enter");
+  assert.match(
+    await page.locator(".selected-loan").textContent(),
+    /0x[0-9a-fA-F]{40}/,
+  );
+  passed(
+    "Deposit owners deduplicated, zero-debt owner excluded, debt area ratio 4:1; hover, keyboard and touch-readable addresses",
+    names,
+  );
+  const initialWidth = await page
+    .locator(".liquidatable-band")
+    .evaluate((n) => parseFloat(n.style.width));
+  s.minCR = 200n;
+  await refresh(page);
+  await page.waitForFunction(() =>
+    document.querySelector(".liquidatable-band")?.style.width.startsWith("66."),
+  );
+  assert.ok((await page.locator(".loan-mark.is-danger").count()) >= 2);
+  const updatedWidth = await page
+    .locator(".liquidatable-band")
+    .evaluate((n) => parseFloat(n.style.width));
+  assert.ok(updatedWidth > initialWidth);
+  const oldLeft = await page
+    .getByRole("button", { name: /^Copper Penny,/ })
+    .evaluate((n) => n.style.left);
+  s.priceMultiplier = 0.9;
+  await refresh(page);
+  await page.waitForFunction(
+    (previous) =>
+      [...document.querySelectorAll(".loan-mark")].find((n) =>
+        n.textContent.includes("Copper Penny"),
+      )?.style.left !== previous,
+    oldLeft,
+  );
+  assert.match(
+    await page
+      .locator(".loan-mark")
+      .first()
+      .evaluate((n) => getComputedStyle(n).transitionProperty),
+    /left/,
+  );
+  s.minCR = 150n;
+  s.priceMultiplier = 1;
+  await refresh(page);
+  passed(
+    "Live minCR moves the risk band and changes position classification; price updates move existing marks",
+  );
+  const cadence = page.locator(".pane-oracle .cadence-chart").first();
+  await cadence.locator("circle").first().waitFor({ state: "attached" });
+  assert.equal(await cadence.locator("circle").count(), 4);
+  const xs = await cadence
+    .locator("circle")
+    .evaluateAll((nodes) => nodes.map((n) => Number(n.getAttribute("cx"))));
+  assert.ok((xs[2] - xs[1]) / (xs[1] - xs[0]) > 20);
+  assert.equal(await cadence.locator(".limit-line").count(), 1);
+  s.extraPoint = true;
+  await refresh(page);
+  await page.waitForFunction(
+    () =>
+      document
+        .querySelector(".pane-oracle .cadence-chart")
+        ?.querySelectorAll("circle").length === 5,
+  );
+  assert.equal(
+    await cadence
+      .locator(".spark-point")
+      .last()
+      .evaluate((n) => getComputedStyle(n).animationName),
+    "add-point",
+  );
+  assert.equal(await page.locator(".supply-chart .collateral-fill").count(), 1);
+  assert.equal(await page.locator(".supply-chart .work-fill").count(), 1);
+  assert.equal(await page.locator(".supply-chart .par-marker").count(), 1);
+  assert.equal(await page.locator(".supply-chart .backing-marker").count(), 1);
+  assert.equal(await page.locator(".work-chart .bar-marker").count(), 1);
+  passed(
+    "Every accepted value is a point at its irregular timestamp; expiry marked and a new point appends; composition, backing/par and work-ceiling bars rendered",
+    { xs },
+  );
+  s.workCeiling = 10n * 10n ** 18n;
+  s.maxDivergenceBps = 500n;
+  s.spotMultiplier = 1.1;
+  await refresh(page);
+  await page.locator(".work-chart .over-limit").waitFor({ state: "attached" });
+  await page
+    .locator(".divergence-chart .breached")
+    .waitFor({ state: "attached" });
+  assert.match(
+    await page.locator(".divergence-chart figcaption").textContent(),
+    /±5%/,
+  );
+  assert.match(
+    await page.locator(".work-chart").textContent(),
+    /10 COMP over ceiling/,
+  );
+  s.workCeiling = 1250n * 10n ** 18n;
+  s.maxDivergenceBps = 2000n;
+  s.spotMultiplier = 1;
+  await refresh(page);
+  passed(
+    "Live workCeiling and maxDivergenceBps updates redraw limits and explicitly label breaches",
+  );
+  s.logMode = "empty";
+  await refresh(page);
+  await page.locator(".loan-ledger summary").click();
+  await expectText(page.locator(".loan-ledger"), "Blockscout deposit history");
+  assert.equal(await page.locator(".loan-mark").count(), 3);
+  s.explorerEmpty = true;
+  await refresh(page);
+  await expectText(page.locator(".pane-loans"), "Could not read loan book");
+  assert.equal(await page.locator(".loan-mark").count(), 0);
+  assert.match(
+    await page.locator(".pane-loans").textContent(),
+    /position count is unknown/,
+  );
+  s.explorerEmpty = false;
+  s.logMode = "rpc";
+  await page
+    .getByRole("button", { name: "Retry history", exact: true })
+    .click();
+  await page.locator(".loan-mark").first().waitFor();
+  s.ownerReadFail = true;
+  await refresh(page);
+  await expectText(page.locator(".pane-loans"), "Could not read loan book");
+  assert.equal(await page.locator(".loan-mark").count(), 0);
+  s.ownerReadFail = false;
+  await page
+    .getByRole("button", { name: "Retry history", exact: true })
+    .click();
+  await page.locator(".loan-mark").first().waitFor();
+  passed(
+    "Silent empty RPC uses paginated Blockscout fallback; empty fallback and partial owner failure render unknown, retry restores the book",
+  );
+  // System default, live OS change, explicit persistence, theme-color, and both palettes.
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.waitForFunction(
+    () => document.documentElement.dataset.theme === "dark",
+  );
+  assert.equal(
+    await page.evaluate(() => document.documentElement.dataset.theme),
+    "dark",
+  );
+  await page.getByRole("button", { name: "Use light theme" }).click();
+  await page.reload();
+  await page.locator(".loan-mark").first().waitFor();
+  assert.equal(
+    await page.evaluate(() => document.documentElement.dataset.theme),
+    "light",
+  );
+  assert.equal(
+    await page.evaluate(() => localStorage.getItem("comp-terminal-theme")),
+    "light",
+  );
+  passed(
+    "OS theme follows live changes; explicit theme survives reload and overrides OS",
+  );
+  const variants = [];
+  for (const theme of ["light", "dark"]) {
+    if (
+      (await page.evaluate(() => document.documentElement.dataset.theme)) !==
+      theme
+    )
+      await page.getByRole("button", { name: `Use ${theme} theme` }).click();
+    assert.equal(
+      await page.locator('meta[name="theme-color"]').getAttribute("content"),
+      theme === "light" ? "#f7f5ef" : "#111",
+    );
+    for (const [width, height] of [
+      [1440, 900],
+      [1280, 800],
+      [900, 900],
+      [390, 844],
+      [320, 740],
+    ]) {
+      await page.setViewportSize({ width, height });
+      await page
+        .locator(".pane-body")
+        .evaluateAll((nodes) => nodes.forEach((n) => (n.scrollTop = 0)));
+      if (width <= 760)
+        await page.getByLabel("View pane").selectOption("loans");
+      await page.waitForTimeout(200);
+      const dims = await page.evaluate(() => ({
+        width: innerWidth,
+        height: innerHeight,
+        sw: document.documentElement.scrollWidth,
+        sh: document.documentElement.scrollHeight,
+      }));
+      assert.equal(dims.sw, width);
+      assert.equal(dims.sh, height);
+      const labels = await page
+        .locator(".loan-label")
+        .evaluateAll((nodes) =>
+          nodes.map((n) => n.getBoundingClientRect().toJSON()),
+        );
+      for (let i = 0; i < labels.length; i++)
+        for (let j = i + 1; j < labels.length; j++) {
+          const a = labels[i],
+            b = labels[j];
+          assert.ok(
+            a.right <= b.left ||
+              b.right <= a.left ||
+              a.bottom <= b.top ||
+              b.bottom <= a.top,
+            `Position labels overlap at ${width}px`,
+          );
+        }
+      if (width === 1440 || width === 1280 || width === 390)
+        await page.screenshot({
+          path: `${evidence}/charts-${theme}-${width}.png`,
+        });
+      variants.push({ theme, ...dims });
+      if (width <= 760) {
+        for (const pane of [
+          "loans",
+          "position",
+          "oracle",
+          "keeper",
+          "backing",
+          "governance",
+          "redemption",
+          "work",
+        ]) {
+          await page.getByLabel("View pane").selectOption(pane);
+          assert.equal(await page.locator(`.pane-${pane}`).isVisible(), true);
+        }
+        await page.getByLabel("View pane").selectOption("loans");
+      }
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByLabel("View pane").selectOption("oracle");
+    await page
+      .locator(".pane-oracle .pane-body")
+      .evaluate((n) => (n.scrollTop = 0));
+    await page.waitForTimeout(200);
+    await page.screenshot({ path: `${evidence}/cadence-${theme}-390.png` });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const pairs = await page.evaluate(() => {
+      const rgb = (value) =>
+        value
+          .match(/[\d.]+/g)
+          .slice(0, 3)
+          .map(Number);
+      const luminance = (value) =>
+        rgb(value)
+          .map((v) => v / 255)
+          .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+          .reduce((n, v, i) => n + v * [0.2126, 0.7152, 0.0722][i], 0);
+      const ratio = (a, b) =>
+        (Math.max(luminance(a), luminance(b)) + 0.05) /
+        (Math.min(luminance(a), luminance(b)) + 0.05);
+      const surface = getComputedStyle(
+        document.querySelector(".pane"),
+      ).backgroundColor;
+      const background = getComputedStyle(
+        document.documentElement,
+      ).backgroundColor;
+      const text = getComputedStyle(document.documentElement).color;
+      const muted = getComputedStyle(
+        document.querySelector(".book-heading .muted"),
+      ).color;
+      const healthy = getComputedStyle(
+        document.querySelector(".loan-mark.is-healthy"),
+      ).color;
+      const band = getComputedStyle(
+        document.querySelector(".redeemable-band"),
+      ).backgroundColor;
+      return {
+        surface,
+        background,
+        text,
+        muted,
+        healthy,
+        band,
+        body: ratio(text, surface),
+        secondary: ratio(muted, surface),
+        markOnBand: ratio(healthy, band),
+        markOnSurface: ratio(healthy, surface),
+      };
+    });
+    assert.ok(
+      pairs.body >= 4.5 &&
+        pairs.secondary >= 4.5 &&
+        pairs.markOnBand >= 3 &&
+        pairs.markOnSurface >= 3,
+    );
+    passed(`Measured rendered ${theme} text and chart-mark contrast`, pairs);
+    const scan = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .analyze();
+    assert.deepEqual(
+      scan.violations.map((v) => ({
+        id: v.id,
+        nodes: v.nodes.map((n) => n.target),
+      })),
+      [],
+    );
+  }
+  passed(
+    "Both themes fit all five viewport sizes; all eight mobile panes reachable; desktop axe reports no violations",
+    variants,
+  );
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const selector of [
+    ".loan-mark",
+    ".ratio-band",
+    ".spark-point",
+    ".spark-path",
+    ".bar-fill",
+  ]) {
+    const styles = await page
+      .locator(selector)
+      .first()
+      .evaluate((n) => ({
+        transition: getComputedStyle(n).transitionDuration,
+        animation: getComputedStyle(n).animationName,
+      }));
+    assert.equal(styles.transition, "0s");
+    assert.equal(styles.animation, "none");
+  }
+  passed(
+    "Reduced motion disables all chart transitions, line drawing and point entrances",
   );
   assert.deepEqual(errors, []);
   passed(

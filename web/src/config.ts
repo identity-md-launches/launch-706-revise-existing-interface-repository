@@ -159,3 +159,13 @@ declare global {
     };
   }
 }
+
+// Public history service and bounded browser read policy; no indexer is operated by this app.
+export const historyConfig = {
+  blockscoutApi: "https://eth-sepolia.blockscout.com/api/v2/",
+  chainId: 11155111,
+  chunkSize: 2000n,
+  maxChunks: 10000,
+  maxPages: 2000,
+  overlap: 12n,
+};

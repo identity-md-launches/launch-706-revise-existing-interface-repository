@@ -6,6 +6,9 @@ import { Pane, type Actions, type Request, AddressLink } from "./actions";
 import { Redemption } from "./Redemption";
 import { Position, Work, Oracle, Keeper, Backing, Governance } from "./Panes";
 import { message, fmt } from "./math";
+import { ThemeToggle } from "./theme";
+import { LoanBook, useCharts } from "./Charts";
+import { Ticker } from "./motion";
 export default function App() {
   const [r, setRuntime] = useState<Runtime>();
   const [error, setError] = useState("");
@@ -28,6 +31,7 @@ export default function App() {
     return (
       <div className="boot">
         <h1>COMP / Terminal</h1>
+        <ThemeToggle />
         <p role="status">
           {error || "Loading deployment and verifying ABI integrity…"}
         </p>
@@ -58,7 +62,8 @@ function Terminal({ r }: { r: Runtime }) {
     { status: "No transaction submitted." },
   );
   const [now, setNow] = useState(BigInt(Math.floor(Date.now() / 1000)));
-  const [mobilePane, setMobilePane] = useState("redemption");
+  const [mobilePane, setMobilePane] = useState("loans");
+  const charts = useCharts(r, s);
   const dialog = useRef<HTMLDialogElement>(null);
   const locked = useRef(false);
   const serial = useRef(0);
@@ -284,6 +289,7 @@ function Terminal({ r }: { r: Runtime }) {
     }
   }
   const panes = [
+    "loans",
     "position",
     "redemption",
     "work",
@@ -305,6 +311,7 @@ function Terminal({ r }: { r: Runtime }) {
           <span className="edition">Compute-backed stablecoin</span>
         </div>
         <div className="wallet-bar">
+          <ThemeToggle />
           <span className="network">{r.config.network.name} / testnet</span>
           {account ? (
             <>
@@ -342,7 +349,10 @@ function Terminal({ r }: { r: Runtime }) {
               : "Verifying deployment"}
         </span>
         <span>
-          Supply <b>{fmt(s?.v.supply, 18, 2)} COMP</b>
+          Supply{" "}
+          <b>
+            <Ticker text={`${fmt(s?.v.supply, 18, 2)} COMP`} />
+          </b>
         </span>
         <span>
           Block <b>{s?.block.toString() ?? "—"}</b>
@@ -379,6 +389,9 @@ function Terminal({ r }: { r: Runtime }) {
         data-mobile-pane={mobilePane}
         tabIndex={-1}
       >
+        <Pane id="loans" index="00" title="Loan book" tag="Live risk bands">
+          <LoanBook charts={charts} available={!!s} />
+        </Pane>
         <Pane
           id="position"
           index="01"
@@ -402,10 +415,10 @@ function Terminal({ r }: { r: Runtime }) {
                 : "Oracle"
           }
         >
-          <Work r={r} s={s} actions={actions} now={now} />
+          <Work r={r} s={s} actions={actions} now={now} charts={charts} />
         </Pane>
         <Pane id="oracle" index="04" title="Oracle" tag="Feeds">
-          <Oracle r={r} s={s} actions={actions} now={now} />
+          <Oracle r={r} s={s} actions={actions} now={now} charts={charts} />
         </Pane>
         <Pane id="keeper" index="05" title="Keeper" tag="Permissionless">
           <Keeper r={r} s={s} actions={actions} now={now} />
